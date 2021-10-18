@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pom-study" />
+        <module name="javaSE" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="javaSE" target="1.8" />
       <module name="maven-project" target="1.8" />
       <module name="pom-study" target="1.8" />
     </bytecodeTargetLevel>

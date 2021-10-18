@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/javaSE/javaSE.iml" filepath="$PROJECT_DIR$/javaSE/javaSE.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven-project.iml" filepath="$PROJECT_DIR$/maven-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/pom-study/pom-study.iml" filepath="$PROJECT_DIR$/pom-study/pom-study.iml" />
     </modules>
