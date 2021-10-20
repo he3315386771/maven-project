@@ -1,8 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Base {
+public class Base implements Serializable {
     private Integer id;
     private Date createTime;
 
