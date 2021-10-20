@@ -22,4 +22,12 @@ public class Dept extends Base implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                "} " + super.toString();
+    }
 }

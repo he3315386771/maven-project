@@ -14,4 +14,11 @@ public class Hobby extends Base implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Hobby{" +
+                "name='" + name + '\'' +
+                "} " + super.toString();
+    }
 }
