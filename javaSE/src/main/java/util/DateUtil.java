@@ -1,7 +1,7 @@
 package util;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -656,7 +656,6 @@ public class DateUtil extends DateUtils {
         return date;
     }
 
-
     /**
      * 是否小于当前日期
      * @param dateStr
@@ -729,7 +728,6 @@ public class DateUtil extends DateUtils {
         Date date1 = dateparttimeFormat.parse(date);
         return new SimpleDateFormat(format).format(date1);
     }
-
 
     /**
      * 获取某天开始时间,时间为00:00:00

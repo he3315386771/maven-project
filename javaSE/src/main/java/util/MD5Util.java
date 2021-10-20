@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 public class MD5Util {
+	private MD5Util(){}
 
 	/**
 	 * 转换为大写Md5
@@ -25,6 +26,16 @@ public class MD5Util {
 	 * @return
 	 */
 	public static String md5(String str) {
+		return md5(str,true);
+	}
+
+	/**
+	 * md5加密
+	 * @param str
+	 * @param flag true->32位  false->16位
+	 * @return
+	 */
+	public static String md5(String str,boolean flag){
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(str.getBytes());
@@ -41,10 +52,13 @@ public class MD5Util {
 				}
 				buf.append(Integer.toHexString(i));
 			}
-			// 32位加密
-			return buf.toString();
-			// 16位的加密
-			// return buf.toString().substring(8, 24);
+			if(flag){
+				// 32位加密
+				return buf.toString();
+			}else{
+				// 16位的加密
+				 return buf.toString().substring(8, 24);
+			}
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 			return null;
