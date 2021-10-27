@@ -2,13 +2,13 @@ package util;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unchecked")
 public class CollectionUtil extends CollectionUtils {
     private CollectionUtil(){}
 
@@ -47,6 +47,7 @@ public class CollectionUtil extends CollectionUtils {
     public static <T> List<T> distinct(List<T> list, Function<? super T, Object>... keyExtractors){
         return list.stream().filter(distinctByKey(keyExtractors)).collect(Collectors.toList());
     }
+
     private static <T> Predicate<T> distinctByKey(Function<? super T, Object>... keyExtractors) {
         if(keyExtractors==null || keyExtractors.length==0){
             Set<Object> seen = ConcurrentHashMap.newKeySet();
