@@ -8,7 +8,7 @@ import enums.ObjectFunnel;
 import java.util.*;
 
 public class BloomFilterDemo {
-    private final static int SIZE = 10000000;
+    private final static int SIZE = 1000000;
     public static void main(String[] args) throws Exception {
         test01();//bloomFilter<Integer>  快
         test02();//List<Integer>  巨慢
