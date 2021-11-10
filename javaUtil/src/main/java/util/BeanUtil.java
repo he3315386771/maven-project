@@ -1,5 +1,8 @@
 package util;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -108,5 +111,59 @@ public class BeanUtil {
      */
     public static boolean isMethodPropEquals(String m1, String m2) {
         return m1.substring(BEAN_METHOD_PROP_INDEX).equals(m2.substring(BEAN_METHOD_PROP_INDEX));
+    }
+
+    public static void copyBean(Object dest,Object src) throws Exception{
+        if(src==null || dest==null){
+            return;
+        }
+        Map<String,Field> destFields = getFields(dest.getClass(),null);
+        Map<String,Field> srcFields = getFields(src.getClass(),null);
+        Set<Map.Entry<String, Field>> entries = srcFields.entrySet();
+        for (Map.Entry<String, Field> entry : entries){
+            Field srcField = entry.getValue();
+            srcField.setAccessible(true);
+            if(srcField.get(src) == null){
+                continue;
+            }
+            Field destField = destFields.get(entry.getKey());
+            if(destField!=null){
+                destField.setAccessible(true);
+                try{
+                    switch (destField.getType().getName()){
+                        case "java.lang.String":
+                            destField.set(dest,String.valueOf(srcField.get(src)));
+                            break;
+                        case "java.lang.Integer":
+                            destField.set(dest,Integer.parseInt(srcField.get(src).toString()));
+                            break;
+                        case "java.util.Date":
+                            destField.set(dest,ParseUtil.toDate(srcField.get(src).toString()));
+                            break;
+                        default:
+                            destField.set(dest,srcField.get(src));
+                    }
+                }catch (Exception e){
+                    System.out.println(destField.getName()+"#"+srcField.get(src));
+                }
+            }
+        }
+    }
+    private static Map<String,Field> getFields(Class clazz, Map<String,Field> Fields){
+        if(Fields==null){
+            Fields = new HashMap<>();
+        }
+        if(clazz.getSuperclass()!=null){
+            getFields(clazz.getSuperclass(),Fields);
+        }
+        for(Field field : clazz.getDeclaredFields()){
+            String key=field.getName();
+            SerializedName sNAn = field.getAnnotation(SerializedName.class);
+            if(sNAn!=null){
+                key = sNAn.value();
+            }
+            Fields.put(key,field);
+        }
+        return Fields;
     }
 }
