@@ -1,4 +1,4 @@
-package com.yyt.ecard.common.util.zidingyi;
+package util;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -149,8 +149,8 @@ public class BeanUtil {
                     }
                 }
             }
-        }catch (Exception e){
-
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
     private static Map<String,Field> getFields(Class clazz, Map<String,Field> Fields){
