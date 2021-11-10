@@ -9,6 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>javaUtil</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
