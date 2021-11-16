@@ -69,12 +69,12 @@ public class CollectionUtil extends CollectionUtils {
                 while(setI.hasNext()){
                     int j = setI.next();
                     if(i==keyExtractors.length-1){
-                        if(lists.get(i).get(j).equals(keyExtractors[i].apply(t))){
+                        if(Objects.equals(lists.get(i).get(j),keyExtractors[i].apply(t))){
                             flag=false;
                             break;
                         }
                     }else{
-                        if((!lists.get(i).get(j).equals(keyExtractors[i].apply(t)))){
+                        if((!Objects.equals(lists.get(i).get(j),keyExtractors[i].apply(t)))){
                             setI.remove();
                         }else{
                             flag2 = false;
