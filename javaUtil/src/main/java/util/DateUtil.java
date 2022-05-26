@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DateUtil extends DateUtils {
     private DateUtil(){}
@@ -46,6 +48,49 @@ public class DateUtil extends DateUtils {
         weekMap.put("Friday", "星期五");
         weekMap.put("Saturday", "星期六");
         weekMap.put("Sunday", "星期日");
+    }
+
+    //转化不规则时间格式
+    public static String parseTimeIrregularity(String time) {
+        if(StringUtils.isEmpty((time))) {
+            return "";
+        }
+        Pattern p=Pattern.compile("(\\d*)\\D*(\\d*)\\D*(\\d*)\\D*(\\d*)\\D*(\\d*)\\D*(\\d*)");
+        Matcher m = p.matcher(time);
+        m.find();
+        String newTime = time;
+        if(!m.group(2).equals("")) {
+            if(m.group(1).length()==4) {
+                newTime = getVal("%4s",m.group(1))+"-"+getVal("%2s",m.group(2))+"-"+getVal("%2s",m.group(3))+" "+getVal("%2s",m.group(4))+":"+getVal("%2s",m.group(5))+":"+getVal("%2s",m.group(6));
+            }else {
+                String one = getVal("%2s",m.group(1));
+                String two = getVal("%2s",m.group(2));
+                if(one.compareTo("12")>0) {
+                    //dd-mm-yyyy
+                    newTime = getVal("%4s",m.group(3))+"-"+getVal("%2s",m.group(2))+"-"+getVal("%2s",m.group(1))+" "+getVal("%2s",m.group(4))+":"+getVal("%2s",m.group(5))+":"+getVal("%2s",m.group(6));
+                }else if(two.compareTo("12")>0){
+                    //mm-dd-yyyy
+                    newTime = getVal("%4s",m.group(3))+"-"+getVal("%2s",m.group(1))+"-"+getVal("%2s",m.group(2))+" "+getVal("%2s",m.group(4))+":"+getVal("%2s",m.group(5))+":"+getVal("%2s",m.group(6));
+                }else {
+                    //mm-dd-yyyy 默认格式
+                    newTime = getVal("%4s",m.group(3))+"-"+getVal("%2s",m.group(1))+"-"+getVal("%2s",m.group(2))+" "+getVal("%2s",m.group(4))+":"+getVal("%2s",m.group(5))+":"+getVal("%2s",m.group(6));
+                }
+            }
+        }else {
+            String str=getVal("%-14s",newTime);
+            newTime = str.substring(0,4)+"-"+str.substring(4,6)+"-"+str.substring(6,8)+" "+str.substring(8,10)+":"+str.substring(10,12)+":"+str.substring(12,14);
+        }
+        String hh = newTime.substring(11,13);
+        if(time.toUpperCase().contains("AM") && hh.equals("12")) {
+            newTime = newTime.substring(0,11)+"00"+ newTime.substring(13,19);
+        }
+        if(time.toUpperCase().contains("PM") && !hh.equals("12")){
+            newTime = newTime.substring(0,11)+(Integer.parseInt(hh)+12)+ newTime.substring(13,19);
+        }
+        return newTime;
+    }
+    public static String getVal(String str1,String str2) {
+        return String.format(str1, str2).replace(' ','0');
     }
 
     /**
