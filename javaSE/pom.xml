@@ -21,7 +21,20 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <!--处理xml-->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <!--辅助处理xml-->
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.2.0</version>
+        </dependency>
     </dependencies>
+
 
 
 </project>
